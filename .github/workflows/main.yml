@@ -20,3 +20,16 @@ jobs:
       
       - name: create zip deployment package
         run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+
+      - name: Configure my AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+         aws-access-key-id : ${{ secrets.MY_AWS_ACCESS_KEY }}
+         aws-scret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
+         aws-region: ${{ env.AWS_REGIN_NAME }}
+         
+      - name: copy Deployent package to S3 bucket
+        run: aws ss3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/
+        
+      - name: Happy Message
+        run: echo "CI Pipeline par Finished succesfuy!"
