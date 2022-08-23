@@ -6,16 +6,13 @@ env:
  AWS_REGION_NAME           : "us-west-2"
  DEPLOY_PACKAGE_NAME       : "flask_app_${{ github.sha }}.zip"
  
- 
 on:
   push:
     branches: [ "master" ]
 
-
 jobs:
   my_ci_part:
     runs-on: ubuntu-latest
-
     
     steps:
       - name: Git clone our repo
